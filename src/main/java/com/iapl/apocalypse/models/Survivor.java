@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +25,7 @@ public class Survivor implements Serializable{
 	
 	
 	@Id
+	@JsonIgnore
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID_survivor")
 	private Integer ID_survivor;
@@ -158,18 +161,19 @@ public class Survivor implements Serializable{
 	@Column(name = "longitude")
 	private String longitude;
 	
+	@JsonIgnore
 	@Column(name = "infected")
 	private String infected;
 	
 	
 	
 
-	
+	@JsonIgnore
 	@Transient
 	@Column(name = "date_created")
 	private transient String date_created;
 	
-	
+	@JsonIgnore
 	@Transient
 	@Column(name = "date_updated")
 	private transient String date_updated;

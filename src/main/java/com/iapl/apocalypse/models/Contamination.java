@@ -12,6 +12,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -77,6 +79,7 @@ public class Contamination  implements Serializable{
 	}
 
 	@Id
+	@JsonIgnore
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID_contamination")
 	private Integer ID_contamination;
@@ -88,6 +91,7 @@ public class Contamination  implements Serializable{
 	@Column(name = "reporter_id")
 	private Integer reporter_id;
 	
+	@JsonIgnore
 	@Column(name = "reported_at")
 	@CreationTimestamp
 	private Timestamp reported_at;

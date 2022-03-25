@@ -1,5 +1,7 @@
 package com.iapl.apocalypse.controller;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +28,7 @@ public class SurvivorController {
 	
 	
 	// This function creates a new survivor in the DB
-	@RequestMapping(value = "/survivors",method = RequestMethod.POST)
+	@RequestMapping(value = "/survivors/create",method = RequestMethod.POST)
 	public ResponseEntity<?>  createSurvivor(@RequestBody Survivor surv) {
 		
         try{
@@ -42,6 +44,28 @@ public class SurvivorController {
 		 }
 			
 	}
+	
+	
+	
+	
+	@RequestMapping(value = "/survivors/update",method = RequestMethod.POST)
+	public ResponseEntity<?>  updateSurvivorLocation(@RequestBody HashMap<String,String> surv) {
+		
+		try{
+			
+        	Object updatedSurv = apocaService.updateSurvivorLocation(surv);
+		
+			
+			return new ResponseEntity<Object>( updatedSurv,HttpStatus.OK);
+			
+		 }catch(Exception ex) {
+			
+			return new ResponseEntity<Object>( ex,HttpStatus.UNPROCESSABLE_ENTITY);
+			
+		 }
+	}
+	
+	
 	
 	
 	

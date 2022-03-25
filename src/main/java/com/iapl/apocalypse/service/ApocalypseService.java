@@ -1,5 +1,6 @@
 package com.iapl.apocalypse.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.iapl.apocalypse.models.Contamination;
@@ -11,6 +12,8 @@ public interface ApocalypseService {
 	public <T> T getRobotsList() throws Exception;
 	
 	public Survivor createNewSurvivor(Survivor surv) throws Exception;
+	
+	public Survivor updateSurvivorLocation(HashMap<String,String> location) throws Exception;
 	
 	public List<Survivor> listAllSurviors() throws Exception;
 	

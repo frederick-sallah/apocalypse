@@ -80,6 +80,20 @@ public class ApocalypseServiceImpl implements ApocalypseService{
 	
 	
 	@Override
+	public Survivor updateSurvivorLocation(HashMap<String,String> location){
+		
+		Survivor surv = srvRepo.getById(Integer.parseInt(location.get("survivor_id")));
+		
+		surv.setLatitude(location.get("latitude"));
+		surv.setLongitude(location.get("longitude"));
+		
+		Survivor upsv = srvRepo.save(surv);
+		
+		return upsv;
+	}
+	
+	
+	@Override
 	public List<Survivor> listInfectedSurviors(){
 		
 		return srvRepo.pullInfectedSurvivors();
