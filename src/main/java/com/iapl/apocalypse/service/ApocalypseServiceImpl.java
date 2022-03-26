@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.iapl.apocalypse.client.ApocalypseClient;
 import com.iapl.apocalypse.models.Contamination;
+import com.iapl.apocalypse.models.Inventory;
 import com.iapl.apocalypse.models.Survivor;
 import com.iapl.apocalypse.repositories.ContaminationRepository;
+import com.iapl.apocalypse.repositories.InventoryRepository;
 import com.iapl.apocalypse.repositories.SurvivorRepository;
 
 
@@ -26,6 +28,9 @@ public class ApocalypseServiceImpl implements ApocalypseService{
 	
 	@Autowired
 	ContaminationRepository contRepo;
+	
+	@Autowired
+	InventoryRepository invRepo;
 	
 	
 	@Value("${apocalypse.robot.url}")
@@ -74,6 +79,18 @@ public class ApocalypseServiceImpl implements ApocalypseService{
 		surv.setInfected("No");
 		Survivor sv = srvRepo.save(surv);
 		
+		//checking if this survivor has inventory
+		if(surv.getInventory().size()> 0) {
+			
+			// Storing the inventory after creation of survivor
+			for(Inventory inv :	surv.getInventory()) {
+				
+				inv.setSurvivor_id(sv.getID_survivor());
+				invRepo.save(inv);
+			}
+		
+		}
+		
 		return sv;
 		
 	}
@@ -96,6 +113,11 @@ public class ApocalypseServiceImpl implements ApocalypseService{
 	@Override
 	public List<Survivor> listInfectedSurviors(){
 		
+       for(Survivor surv :	srvRepo.pullInfectedSurvivors()) {
+			
+			surv.setInventory(invRepo.getBySurvivor(surv.getID_survivor()));
+		}
+		
 		return srvRepo.pullInfectedSurvivors();
 		
 	}
@@ -105,6 +127,11 @@ public class ApocalypseServiceImpl implements ApocalypseService{
 	@Override
     public List<Survivor> listNonInfectedSurviors(){
 		
+       for(Survivor surv :	srvRepo.pullNonInfectedSurvivors()) {
+			
+			surv.setInventory(invRepo.getBySurvivor(surv.getID_survivor()));
+		}
+		
 		return srvRepo.pullNonInfectedSurvivors();
 		
 	}
@@ -113,6 +140,12 @@ public class ApocalypseServiceImpl implements ApocalypseService{
 	
 	@Override
 	public List<Survivor> listAllSurviors(){
+		
+		for(Survivor surv :	srvRepo.findAll()) {
+			
+			surv.setInventory(invRepo.getBySurvivor(surv.getID_survivor()));
+		}
+		
 		
 		return srvRepo.findAll();
 	}

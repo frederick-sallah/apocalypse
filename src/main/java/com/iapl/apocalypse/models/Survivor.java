@@ -3,6 +3,7 @@ package com.iapl.apocalypse.models;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,8 +38,11 @@ public class Survivor implements Serializable{
 	
 	public  Survivor() {}
 	
+
+
+
 	public Survivor(Integer iD_survivor, String name, String age, String gender, String latitude, String longitude,
-			String infected, String date_created, String date_updated) {
+			String infected, List<Inventory> inventory, String date_created, String date_updated) {
 		super();
 		ID_survivor = iD_survivor;
 		this.name = name;
@@ -47,9 +51,12 @@ public class Survivor implements Serializable{
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.infected = infected;
+		this.inventory = inventory;
 		this.date_created = date_created;
 		this.date_updated = date_updated;
 	}
+
+
 
 
 	@Override
@@ -161,17 +168,33 @@ public class Survivor implements Serializable{
 	@Column(name = "longitude")
 	private String longitude;
 	
-	@JsonIgnore
+	
 	@Column(name = "infected")
 	private String infected;
 	
 	
+
+	@Transient
+	@Column(name = "inventory")
+	private transient List<Inventory> inventory;
 	
+	
+
+	public List<Inventory> getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(List<Inventory> inventory) {
+		this.inventory = inventory;
+	}
+
 
 	@JsonIgnore
 	@Transient
 	@Column(name = "date_created")
 	private transient String date_created;
+	
+	
 	
 	@JsonIgnore
 	@Transient
