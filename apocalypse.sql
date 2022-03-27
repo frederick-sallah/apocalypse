@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 25, 2022 at 07:11 PM
+-- Generation Time: Mar 27, 2022 at 05:09 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -64,20 +64,28 @@ CREATE TABLE `hibernate_sequence` (
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(24);
+(35);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `resource`
+-- Table structure for table `inventory`
 --
 
-CREATE TABLE `resource` (
-  `ID_resource` int(11) NOT NULL,
+CREATE TABLE `inventory` (
+  `ID_inventory` int(11) NOT NULL,
   `survivor_id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` varchar(255) DEFAULT NULL
+  `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `inventory`
+--
+
+INSERT INTO `inventory` (`ID_inventory`, `survivor_id`, `name`) VALUES
+(27, 26, 'water'),
+(28, 26, 'munition'),
+(29, 26, 'food');
 
 -- --------------------------------------------------------
 
@@ -93,7 +101,7 @@ CREATE TABLE `survivor` (
   `latitude` varchar(255) NOT NULL,
   `longitude` varchar(255) NOT NULL,
   `infected` varchar(255) NOT NULL,
-  `date_created` varchar(255) DEFAULT current_timestamp(),
+  `date_created` varchar(255) DEFAULT NULL,
   `date_updated` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -105,7 +113,10 @@ INSERT INTO `survivor` (`ID_survivor`, `name`, `age`, `gender`, `latitude`, `lon
 (8, 'fred', '10', 'Female', '993848', '488483', 'Yes', '2022-03-24 17:30:10', NULL),
 (18, 'Steven', '31', 'Male', '993848', '488483', 'No', '2022-03-25 12:27:14', NULL),
 (19, 'Grace', '27', 'Female', '993848', '488483', 'No', '2022-03-25 12:27:27', NULL),
-(20, 'Diana', '28', 'Female', '993848', '488483', 'No', '2022-03-25 12:27:36', NULL);
+(20, 'Diana', '28', 'Female', '222222', '11111', 'No', '2022-03-25 12:27:36', NULL),
+(25, 'string', 'string', 'Male', 'string', 'string', 'No', '2022-03-25 21:56:10', NULL),
+(26, 'fredyapps', '30', 'Male', '90909', '77777', 'No', '2022-03-26 07:58:02', NULL),
+(30, 'tety', '30', 'Male', '5555', '44', 'No', '2022-03-26 07:59:05', NULL);
 
 --
 -- Indexes for dumped tables
@@ -118,10 +129,10 @@ ALTER TABLE `contamination`
   ADD PRIMARY KEY (`ID_contamination`);
 
 --
--- Indexes for table `resource`
+-- Indexes for table `inventory`
 --
-ALTER TABLE `resource`
-  ADD PRIMARY KEY (`ID_resource`);
+ALTER TABLE `inventory`
+  ADD PRIMARY KEY (`ID_inventory`);
 
 --
 -- Indexes for table `survivor`
@@ -140,16 +151,16 @@ ALTER TABLE `contamination`
   MODIFY `ID_contamination` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT for table `resource`
+-- AUTO_INCREMENT for table `inventory`
 --
-ALTER TABLE `resource`
-  MODIFY `ID_resource` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `inventory`
+  MODIFY `ID_inventory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `survivor`
 --
 ALTER TABLE `survivor`
-  MODIFY `ID_survivor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `ID_survivor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

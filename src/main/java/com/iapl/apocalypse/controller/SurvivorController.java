@@ -1,6 +1,7 @@
 package com.iapl.apocalypse.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iapl.apocalypse.models.Contamination;
+import com.iapl.apocalypse.models.Robot;
 import com.iapl.apocalypse.models.Survivor;
 import com.iapl.apocalypse.service.ApocalypseService;
 
@@ -33,7 +35,7 @@ public class SurvivorController {
 		
         try{
 			
-        	Object createdSurv = apocaService.createNewSurvivor(surv);
+        	Survivor createdSurv = apocaService.createNewSurvivor(surv);
 			
 			return new ResponseEntity<Object>( createdSurv,HttpStatus.OK);
 			
@@ -53,7 +55,7 @@ public class SurvivorController {
 		
 		try{
 			
-        	Object updatedSurv = apocaService.updateSurvivorLocation(surv);
+			Survivor updatedSurv = apocaService.updateSurvivorLocation(surv);
 		
 			
 			return new ResponseEntity<Object>( updatedSurv,HttpStatus.OK);
@@ -76,7 +78,7 @@ public class SurvivorController {
 		
 		     try{
 				
-	        	Object reportedInf = apocaService.reportInfection(surv);
+		    	 Contamination reportedInf = apocaService.reportInfection(surv);
 				
 				return new ResponseEntity<Object>( reportedInf,HttpStatus.OK);
 				
@@ -96,7 +98,7 @@ public class SurvivorController {
 		
 		     try{
 				
-	        	Object reportedInfs = apocaService.listOfInfectionsReport(surv_id);
+		    	 List<Contamination> reportedInfs = apocaService.listOfInfectionsReport(surv_id);
 				
 				return new ResponseEntity<Object>( reportedInfs,HttpStatus.OK);
 				
@@ -118,7 +120,7 @@ public class SurvivorController {
 		
 		    try{
 				
-	        	Object survList = apocaService.listAllSurviors();
+		    	List<Survivor> survList = apocaService.listAllSurviors();
 				
 				return new ResponseEntity<Object>( survList,HttpStatus.OK);
 				
@@ -138,7 +140,7 @@ public class SurvivorController {
 		
 		   try{
 				
-	        	Object stats1Results = apocaService.infectedSurvivorsPercentage();
+			   HashMap<String,Integer> stats1Results = apocaService.infectedSurvivorsPercentage();
 				
 				return new ResponseEntity<Object>( stats1Results,HttpStatus.OK);
 				
@@ -158,7 +160,7 @@ public class SurvivorController {
 			
 			   try{
 					
-		        	Object stats2Results = apocaService.nonInfectedSurvivorsPercentage();
+				   HashMap<String,Integer> stats2Results = apocaService.nonInfectedSurvivorsPercentage();
 					
 					return new ResponseEntity<Object>( stats2Results,HttpStatus.OK);
 					
@@ -179,7 +181,7 @@ public class SurvivorController {
 			
 			    try{
 					
-		        	Object infectedSurvivors = apocaService.listInfectedSurviors();
+			    	List<Survivor> infectedSurvivors = apocaService.listInfectedSurviors();
 					
 					return new ResponseEntity<Object>( infectedSurvivors,HttpStatus.OK);
 					
@@ -203,7 +205,7 @@ public class SurvivorController {
 				
 				try{
 					
-		        	Object nonInfectedSurvivors = apocaService.listNonInfectedSurviors();
+					List<Survivor> nonInfectedSurvivors = apocaService.listNonInfectedSurviors();
 					
 					return new ResponseEntity<Object>( nonInfectedSurvivors,HttpStatus.OK);
 					
@@ -221,16 +223,17 @@ public class SurvivorController {
 			// This function  returns the list of robots from the azure service
 			@RequestMapping(value = "/robots",method = RequestMethod.GET)
 			public ResponseEntity<?>  getRobots(){
+				List<Robot> robots = null;
 				
 				try{
+						
+		        	 robots = apocaService.getRobotsList();
 					
-		        	Object the_robots = apocaService.getRobotsList();
-					
-					return new ResponseEntity<Object>( the_robots,HttpStatus.OK);
+					 return new ResponseEntity<Object>( robots,HttpStatus.OK);
 					
 				 }catch(Exception ex) {
 					
-					return new ResponseEntity<Object>( ex,HttpStatus.UNPROCESSABLE_ENTITY);
+					 return new ResponseEntity<Object>( ex,HttpStatus.UNPROCESSABLE_ENTITY);
 					
 				 }
 				

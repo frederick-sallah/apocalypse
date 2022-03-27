@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.iapl.apocalypse.client.ApocalypseClient;
 import com.iapl.apocalypse.models.Contamination;
 import com.iapl.apocalypse.models.Inventory;
+import com.iapl.apocalypse.models.Robot;
 import com.iapl.apocalypse.models.Survivor;
 import com.iapl.apocalypse.repositories.ContaminationRepository;
 import com.iapl.apocalypse.repositories.InventoryRepository;
@@ -42,19 +43,20 @@ public class ApocalypseServiceImpl implements ApocalypseService{
 	
 //	
 	@Override
-	public Object getRobotsList() {
+	public List<Robot> getRobotsList() {
 		
 		
-		Object the_robots = new Object();
+		
+		List<Robot> robots = null;
 		
 		//=====================================================
 	   
 		try {
 			
-			the_robots = client.listRobotsFromAzure(robot_url);
+			robots = client.listRobotsFromAzure(robot_url);
 	         
 	         System.out.println("========== printing response from azure robot service ===========");
-	         System.out.println(the_robots);
+	         System.out.println(robots);
 	    
 		}catch(Exception ex) {
 			
@@ -64,7 +66,7 @@ public class ApocalypseServiceImpl implements ApocalypseService{
 		
 		//=====================================================
 		
-		return the_robots ;
+		return robots ;
 		
 	}
 	
